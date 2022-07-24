@@ -5,15 +5,13 @@ using UnityEngine;
 public enum MoveAction
 {
     AdvanceMove = 1,//前進
-    Attack = 2,//攻撃
-    //Chase = 2,//追従
-    RecessionMove = -1,//後退
+    CoreAttack = 2,//コアに対しての攻撃
+    CaraAttack = 3,//キャラクターに対しての攻撃
+    Chase = 4,//追従
+    EvasionMove = -1,//回避
+    Return = -2//拠点に戻る
 }
-public enum PlayerColor
-{
-    Blue = 0,
-    Red = 1
-}
+
 public class BaseMoveController : MonoBehaviour
 {
     /// <summary>移動速度</summary>
@@ -24,8 +22,7 @@ public class BaseMoveController : MonoBehaviour
 
     /// <summary>ActionのType</summary>
     [SerializeField] public MoveAction _actionType = MoveAction.AdvanceMove;
-    /// <summary>PlayerのType</summary>
-    [SerializeField] public PlayerColor _playerType = PlayerColor.Blue;
+
 
     [SerializeField] protected GameObject[] _targets;
 
@@ -36,24 +33,7 @@ public class BaseMoveController : MonoBehaviour
 
     void Start()
     {
-        TargetSerch();
-    }
-
-    private void TargetSerch()
-    {
-        switch (_playerType)
-        {
-            case 0:
-                _targets = GameObject.FindGameObjectsWithTag("Red");
-                break;
-            case (PlayerColor)1:
-                _targets = GameObject.FindGameObjectsWithTag("Blue");
-                break;
-        }
-        foreach (var obj in _targets)
-        {
-            _targetPos =  obj.transform.position;
-        }
+      
     }
 
     void Update()
@@ -61,6 +41,9 @@ public class BaseMoveController : MonoBehaviour
         ActionChange();
     }
 
+    /// <summary>
+    /// Acrionの切替
+    /// </summary>
     private void ActionChange()
     {
         switch (_actionType)
@@ -76,7 +59,7 @@ public class BaseMoveController : MonoBehaviour
                 transform.position = transform.position + transform.forward * _speed * Time.deltaTime;
 
                 break;
-            case MoveAction.Attack:
+            case MoveAction.CoreAttack:
                 Debug.Log("攻撃");
                
                 break;
@@ -89,7 +72,7 @@ public class BaseMoveController : MonoBehaviour
     }
 
     /// <summary>
-    /// ターゲットとの距離が指定した値に達したらActionを変える
+    /// コアとの距離が指定した値に達したらActionを変える
     /// </summary>
     /// <param name="value"></param>
     private void LookDistanse(float value)
@@ -100,7 +83,7 @@ public class BaseMoveController : MonoBehaviour
 
         if (_currentTargetDistance <= value)
         {
-            _actionType = MoveAction.Attack;
+            _actionType = MoveAction.CoreAttack;
         }
         else
         {
