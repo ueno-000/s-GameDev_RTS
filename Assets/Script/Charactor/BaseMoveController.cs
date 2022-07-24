@@ -17,14 +17,16 @@ public class BaseMoveController : MonoBehaviour
     /// <summary>移動速度</summary>
     [SerializeField] protected float _speed = 5;
 
+    /// <summary>攻撃距離</summary>
+    [SerializeField] protected float _attackTransitionDistance = 2;
+
+
     /// <summary>Level</summary>
     protected int _level = 1;
 
     /// <summary>ActionのType</summary>
     [SerializeField] public MoveAction _actionType = MoveAction.AdvanceMove;
 
-
-    [SerializeField] protected GameObject[] _targets;
 
     private Vector3 _thisPos;
     private Vector3 _targetPos;
@@ -33,10 +35,10 @@ public class BaseMoveController : MonoBehaviour
 
     void Start()
     {
-      
+        StartCoroutine(MoveStart(5));
     }
 
-    void Update()
+    void  Update()
     {
         ActionChange();
     }
@@ -44,7 +46,7 @@ public class BaseMoveController : MonoBehaviour
     /// <summary>
     /// Acrionの切替
     /// </summary>
-    private void ActionChange()
+    protected virtual void ActionChange()
     {
         switch (_actionType)
         {
@@ -66,7 +68,7 @@ public class BaseMoveController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         LookDistanse(2);
     }
@@ -75,13 +77,13 @@ public class BaseMoveController : MonoBehaviour
     /// コアとの距離が指定した値に達したらActionを変える
     /// </summary>
     /// <param name="value"></param>
-    private void LookDistanse(float value)
+    protected virtual void LookDistanse(float value)
     {
         _thisPos = this.gameObject.transform.position;
 
         _currentTargetDistance = Mathf.Sqrt(Mathf.Pow(_thisPos.x - _targetPos.x, 2) + Mathf.Pow(_thisPos.z - _targetPos.z, 2));
 
-        if (_currentTargetDistance <= value)
+        if (_currentTargetDistance <= _attackTransitionDistance)
         {
             _actionType = MoveAction.CoreAttack;
         }
@@ -91,4 +93,15 @@ public class BaseMoveController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Game開始までの処理
+    /// </summary>
+    /// <param name="second">秒数指定</param>
+    /// <returns></returns>
+    protected IEnumerator MoveStart(float second)
+    {
+        yield return new WaitForSeconds(second);
+
+        yield break;
+    }
 }
