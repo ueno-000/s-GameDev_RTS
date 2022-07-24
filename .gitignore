@@ -71,3 +71,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .vsconfig
 ProjectSettings/SceneTemplateSettings.json
+ProjectSettings/TagManager.asset
+ProjectSettings/EditorBuildSettings.asset
+ProjectSettings/ProjectSettings.asset
+ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
