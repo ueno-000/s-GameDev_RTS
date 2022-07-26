@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum MoveAction
 {
+    Idle = 0,//静止
     AdvanceMove = 1,//前進
     CoreAttack = 2,//コアに対しての攻撃
     CaraAttack = 3,//キャラクターに対しての攻撃
@@ -100,8 +101,9 @@ public class BaseMoveController : MonoBehaviour
     /// <returns></returns>
     protected IEnumerator MoveStart(float second)
     {
+        Debug.Log("待機ターン");
         yield return new WaitForSeconds(second);
-
+        Debug.Log("行動開始");
         yield break;
     }
 }
