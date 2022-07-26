@@ -14,9 +14,6 @@ public enum PlayerColor
 //}
 public class TargetSerchScript : MonoBehaviour
 {
-    /// <summary>ターゲットにするコアの配列</summary>
-    [SerializeField] protected GameObject[] _targets;
-
     /// <summary>ターゲットにするコア</summary>
     [SerializeField] public GameObject _target;
 
@@ -36,13 +33,8 @@ public class TargetSerchScript : MonoBehaviour
 
     void Start()
     {
+        
         TargetSerch();
-
-        //味方のサブコアを配列に格納する
-        _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);
-        //敵のサブコアを配列に格納する
-        _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);
-
         DecideCoreObject();
     }
 
@@ -64,32 +56,24 @@ public class TargetSerchScript : MonoBehaviour
                 //味方のサブコアを配列に格納する
                 _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);//Blue
                 //敵のサブコアを配列に格納する
-                _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);//Red
+                _enemySubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);//Red
                 break;
             case (PlayerColor)1://Red
                 //味方のサブコアを配列に格納する
                 _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);//Red
                 //敵のサブコアを配列に格納する
-                _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);//Blue
+                _enemySubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);//Blue
                 break;
         }
-        //foreach (var obj in _targets)
-        //{
-        //    _targetPos = obj.transform.position;
-        //}
     }
 
     /// <summary>
-    /// 
+    /// 一番近い距離にいる敵のコアを攻撃対象にする
     /// </summary>
     void DecideCoreObject()
     {
         var enemyCoreArray = _enemySubCores.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).ToArray();
-        //Array.ForEach(blockArray, b =>
-        //{
-        //    b.Label = i.ToString();
-        //    i++;
-        //});
+
         _target = enemyCoreArray[0];
 
     }
