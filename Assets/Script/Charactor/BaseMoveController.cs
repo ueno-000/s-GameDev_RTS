@@ -7,7 +7,7 @@ public enum MoveAction
     Idle = 0,//静止
     AdvanceMove = 1,//前進
     CoreAttack = 2,//コアに対しての攻撃
-    CaraAttack = 3,//キャラクターに対しての攻撃
+    EnemyAttack = 3,//キャラクターに対しての攻撃
     Chase = 4,//追従
     EvasionMove = -1,//回避
     Return = -2//拠点に戻る
@@ -21,33 +21,54 @@ public class BaseMoveController : MonoBehaviour
     /// <summary>攻撃距離</summary>
     [SerializeField] protected float _attackTransitionDistance = 2;
 
-
     /// <summary>Level</summary>
     protected int _level = 1;
 
     /// <summary>ActionのType</summary>
     [SerializeField] public MoveAction _actionType = MoveAction.AdvanceMove;
 
- 
-    private Vector3 _targetPos;
+    private GameObject _enemy;
 
+    private Vector3 _targetCorePos;
     private Vector3 _thisPos;
 
+    /// <summary>現在のコアとの距離</summary>
     private float _currentTargetDistance = 0f;
 
-    private bool _isMoving = false;
+    /// <summary>動きの判定</summary>
+    private bool IsMoving = false;
+
+    /// <summary>攻撃対象がコアかどうかの判定</summary>
+    private bool IsTargetCore = false;
 
     void Start()
     {
         StartCoroutine(MoveStart(5));
-        _targetPos = GetComponent<TargetSerchScript>()._target.transform.position;
+        _targetCorePos = GetComponent<TargetSerchScript>()._targetCore.transform.position;
         _actionType = MoveAction.AdvanceMove;
+        _enemy = null;
+        IsTargetCore = true;
     }
 
-    void  Update()
+    void Update()
     {
-        if(_isMoving)
+        if (IsMoving)
+        {
             ActionChange();
+        }
+
+
+        _enemy = GetComponent<TargetSerchScript>()._targetEnemy;
+
+        if (_enemy != null)
+        {
+            IsTargetCore = false;
+            AttackEnemy();
+        }
+        else
+        {
+            _actionType = MoveAction.AdvanceMove;
+        }
     }
 
     /// <summary>
@@ -59,18 +80,28 @@ public class BaseMoveController : MonoBehaviour
         {
             case MoveAction.AdvanceMove:
 
-                //y軸はプレイヤーと同じにする
-                _targetPos.y = transform.position.y;
-                // プレイヤーに向かせる
-                transform.LookAt(_targetPos);
+                if (IsTargetCore)
+                {
+                    //y軸はプレイヤーと同じにする
+                    _targetCorePos.y = transform.position.y;
+                    // プレイヤーに向かせる
+                    transform.LookAt(_targetCorePos);
 
-                //オブジェクトを前方向に移動する
-                transform.position = transform.position + transform.forward * _speed * Time.deltaTime;
-
+                    //オブジェクトを前方向に移動する
+                    transform.position = transform.position + transform.forward * _speed * Time.deltaTime;
+                }
                 break;
             case MoveAction.CoreAttack:
                 Debug.Log("攻撃");
-               
+                break;
+
+            case MoveAction.EnemyAttack:
+
+                if (!IsTargetCore)
+                {
+                    Debug.Log("敵キャラクターに攻撃");
+                    this.transform.LookAt(_enemy.transform);
+                }
                 break;
         }
     }
@@ -88,7 +119,7 @@ public class BaseMoveController : MonoBehaviour
     {
         _thisPos = this.gameObject.transform.position;
 
-        _currentTargetDistance = Mathf.Sqrt(Mathf.Pow(_thisPos.x - _targetPos.x, 2) + Mathf.Pow(_thisPos.z - _targetPos.z, 2));
+        _currentTargetDistance = Mathf.Sqrt(Mathf.Pow(_thisPos.x - _targetCorePos.x, 2) + Mathf.Pow(_thisPos.z - _targetCorePos.z, 2));
 
         if (_currentTargetDistance <= _attackTransitionDistance)
         {
@@ -101,6 +132,16 @@ public class BaseMoveController : MonoBehaviour
     }
 
     /// <summary>
+    ///敵キャラクターに遭遇した時の処理 
+    /// </summary>
+    protected virtual void AttackEnemy()
+    {
+        _actionType = MoveAction.EnemyAttack;
+    }
+
+
+
+    /// <summary>
     /// Game開始までの処理
     /// </summary>
     /// <param name="second">秒数指定</param>
@@ -108,10 +149,10 @@ public class BaseMoveController : MonoBehaviour
     protected IEnumerator MoveStart(float second)
     {
         Debug.Log("待機ターン");
-        _isMoving = false;
+        IsMoving = false;
         yield return new WaitForSeconds(second);
         Debug.Log("行動開始");
-        _isMoving = true;
+        IsMoving = true;
         yield break;
     }
 }
