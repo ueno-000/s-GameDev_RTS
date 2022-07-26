@@ -8,14 +8,14 @@ public enum PlayerColor
     Blue = 0,
     Red = 1
 }
-//public enum SerchCoreType
-//{
-    
-//}
+
 public class TargetSerchScript : MonoBehaviour
 {
     /// <summary>ターゲットにするコア</summary>
-    [SerializeField] public GameObject _target;
+    [SerializeField] public GameObject _targetCore;
+
+    /// <summary>ターゲットにするEnemy</summary>
+    [SerializeField] public GameObject _targetEnemy;
 
     /// <summary>PlayerのType</summary>
     [SerializeField] public PlayerColor _playerType = PlayerColor.Blue;
@@ -29,11 +29,10 @@ public class TargetSerchScript : MonoBehaviour
     /// <summary>敵陣地サブコアの配列</summary>
     [SerializeField] private GameObject[] _enemySubCores;
 
-
+    bool isEnemy = false;
 
     void Start()
-    {
-        
+    { 
         TargetSerch();
         DecideCoreObject();
     }
@@ -46,6 +45,8 @@ public class TargetSerchScript : MonoBehaviour
         {
             
         }
+
+        if (!isEnemy) _targetEnemy = null;
     }
 
     private void TargetSerch()
@@ -74,8 +75,34 @@ public class TargetSerchScript : MonoBehaviour
     {
         var enemyCoreArray = _enemySubCores.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).ToArray();
 
-        _target = enemyCoreArray[0];
+        _targetCore = enemyCoreArray[0];
 
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        isEnemy = true;
+
+        switch (_playerType)
+        {
+            case 0://Blue
+                if (other.gameObject.tag == "Red")
+                {
+                    _targetEnemy = other.gameObject;
+                }
+                break;
+            case (PlayerColor)1://Red
+                if (other.gameObject.tag == "Blue")
+                {
+                    _targetEnemy = other.gameObject;
+                }
+                break;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isEnemy = false;
     }
 
 }
