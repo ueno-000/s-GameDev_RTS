@@ -28,20 +28,26 @@ public class BaseMoveController : MonoBehaviour
     /// <summary>ActionのType</summary>
     [SerializeField] public MoveAction _actionType = MoveAction.AdvanceMove;
 
-
-    private Vector3 _thisPos;
+ 
     private Vector3 _targetPos;
 
+    private Vector3 _thisPos;
+
     private float _currentTargetDistance = 0f;
+
+    private bool _isMoving = false;
 
     void Start()
     {
         StartCoroutine(MoveStart(5));
+        _targetPos = GetComponent<TargetSerchScript>()._target.transform.position;
+        _actionType = MoveAction.AdvanceMove;
     }
 
     void  Update()
     {
-        ActionChange();
+        if(_isMoving)
+            ActionChange();
     }
 
     /// <summary>
@@ -102,8 +108,10 @@ public class BaseMoveController : MonoBehaviour
     protected IEnumerator MoveStart(float second)
     {
         Debug.Log("待機ターン");
+        _isMoving = false;
         yield return new WaitForSeconds(second);
         Debug.Log("行動開始");
+        _isMoving = true;
         yield break;
     }
 }
