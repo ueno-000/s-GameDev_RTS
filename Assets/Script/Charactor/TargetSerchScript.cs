@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public enum PlayerColor
 {
     Blue = 0,
@@ -13,7 +14,11 @@ public enum PlayerColor
 //}
 public class TargetSerchScript : MonoBehaviour
 {
+    /// <summary>ターゲットにするコアの配列</summary>
     [SerializeField] protected GameObject[] _targets;
+
+    /// <summary>ターゲットにするコア</summary>
+    [SerializeField] public GameObject _target;
 
     /// <summary>PlayerのType</summary>
     [SerializeField] public PlayerColor _playerType = PlayerColor.Blue;
@@ -27,6 +32,8 @@ public class TargetSerchScript : MonoBehaviour
     /// <summary>敵陣地サブコアの配列</summary>
     [SerializeField] private GameObject[] _enemySubCores;
 
+
+
     void Start()
     {
         TargetSerch();
@@ -35,6 +42,8 @@ public class TargetSerchScript : MonoBehaviour
         _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);
         //敵のサブコアを配列に格納する
         _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);
+
+        DecideCoreObject();
     }
 
     // Update is called once per frame
@@ -68,6 +77,21 @@ public class TargetSerchScript : MonoBehaviour
         //{
         //    _targetPos = obj.transform.position;
         //}
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void DecideCoreObject()
+    {
+        var enemyCoreArray = _enemySubCores.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).ToArray();
+        //Array.ForEach(blockArray, b =>
+        //{
+        //    b.Label = i.ToString();
+        //    i++;
+        //});
+        _target = enemyCoreArray[0];
+
     }
 
 }
