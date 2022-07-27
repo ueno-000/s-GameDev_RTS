@@ -29,7 +29,9 @@ public class TargetSerchScript : MonoBehaviour
     /// <summary>敵陣地サブコアの配列</summary>
     [SerializeField] private GameObject[] _enemySubCores;
 
-    bool isEnemy = false;
+    [SerializeField] bool isEnemy = false;
+
+
 
     void Start()
     { 
@@ -102,7 +104,21 @@ public class TargetSerchScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        isEnemy = false;
+        switch (_playerType)
+        {
+            case 0://Blue
+                if (other.gameObject.tag == "Red")
+                {
+                    isEnemy = false;
+                }
+                break;
+            case (PlayerColor)1://Red
+                if (other.gameObject.tag == "Blue")
+                {
+                    isEnemy = false;
+                }
+                break;
+        }
     }
 
 }

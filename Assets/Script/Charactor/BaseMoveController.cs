@@ -56,7 +56,7 @@ public class BaseMoveController : MonoBehaviour
         }
 
 
-        _enemy = GetComponent<TargetSerchScript>()._targetEnemy;
+        _enemy = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetEnemy;
 
         if (_enemy != null)
         {
@@ -106,7 +106,7 @@ public class BaseMoveController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        _targetCorePos = GetComponent<TargetSerchScript>()._targetCore.transform.position;
+        _targetCorePos = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetCore.transform.position;
         LookDistanse(2);
     }
 
