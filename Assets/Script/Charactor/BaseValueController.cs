@@ -25,14 +25,19 @@ public class BaseValueController : MonoBehaviour
     /// <summary>HP</summary>
     [SerializeField] public int _healthPoint = 1;
 
+    [SerializeField] private SliderController _sliderCon;
+    
     void Start()
     {
-        
+        _sliderCon = GetComponent<SliderController>();
+        _sliderCon._slider.maxValue = _healthPoint;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        _sliderCon.UpdateSlider(_healthPoint);
     }
+
+
 }
