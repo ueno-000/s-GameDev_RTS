@@ -21,9 +21,6 @@ public class BaseMoveController : MonoBehaviour
     /// <summary>çUåÇãóó£</summary>
     [SerializeField] protected float _attackTransitionDistance = 2;
 
-    /// <summary>Level</summary>
-    protected int _level = 1;
-
     /// <summary>ActionÇÃType</summary>
     [SerializeField] public MoveAction _actionType = MoveAction.AdvanceMove;
 
@@ -44,10 +41,11 @@ public class BaseMoveController : MonoBehaviour
     void Start()
     {
         StartCoroutine(MoveStart(5));
-        _targetCorePos = GetComponent<TargetSerchScript>()._targetCore.transform.position;
+        
         _actionType = MoveAction.AdvanceMove;
         _enemy = null;
         IsTargetCore = true;
+
     }
 
     void Update()
@@ -108,6 +106,7 @@ public class BaseMoveController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        _targetCorePos = GetComponent<TargetSerchScript>()._targetCore.transform.position;
         LookDistanse(2);
     }
 
