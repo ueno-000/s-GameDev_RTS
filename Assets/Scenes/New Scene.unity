@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 295281748}
   m_Layer: 0
   m_Name: BlueSubCore
-  m_TagString: Blue
+  m_TagString: BlueSubCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 388329089}
   - component: {fileID: 388329088}
   - component: {fileID: 388329093}
+  - component: {fileID: 388329094}
   m_Layer: 0
   m_Name: BluePlayer
   m_TagString: Blue
@@ -364,9 +365,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _attackTransitionDistance: 2
   _actionType: 1
-  _playerType: 0
-  _targets: []
+--- !u!65 &388329094
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388329087}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 1, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &714600671
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +395,7 @@ GameObject:
   - component: {fileID: 714600672}
   m_Layer: 0
   m_Name: RedSubCore
-  m_TagString: Red
+  m_TagString: RedSubCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -495,7 +508,7 @@ GameObject:
   - component: {fileID: 1079477420}
   m_Layer: 0
   m_Name: RedSubCore
-  m_TagString: Red
+  m_TagString: RedSubCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1109,6 +1122,8 @@ GameObject:
   - component: {fileID: 1864713054}
   - component: {fileID: 1864713053}
   - component: {fileID: 1864713058}
+  - component: {fileID: 1864713059}
+  - component: {fileID: 1864713060}
   m_Layer: 0
   m_Name: RedPlayer
   m_TagString: Red
@@ -1223,9 +1238,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
+  _attackTransitionDistance: 2
   _actionType: 1
+--- !u!114 &1864713059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864713052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6849839fb9e56a7409b99f1cb0994748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetCore: {fileID: 0}
+  _targetEnemy: {fileID: 0}
   _playerType: 1
-  _targets: []
+  _alliesSubCores: []
+  _enemySubCores: []
+--- !u!65 &1864713060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864713052}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 1, z: 6}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &1991712151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,7 +1285,7 @@ GameObject:
   - component: {fileID: 1991712156}
   m_Layer: 0
   m_Name: BlueSubCore
-  m_TagString: Blue
+  m_TagString: BlueSubCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
