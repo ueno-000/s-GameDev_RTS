@@ -23,7 +23,7 @@ public class BaseValueController : MonoBehaviour
     [SerializeField] public float _speed = 1;
 
     /// <summary>HP</summary>
-    [SerializeField] public int _healthPoint = 1;
+    [SerializeField] public float _healthPoint = 1;
 
     [SerializeField] private SliderController _sliderCon;
     
@@ -39,5 +39,9 @@ public class BaseValueController : MonoBehaviour
         _sliderCon.UpdateSlider(_healthPoint);
     }
 
+    public void HP(float hp)
+    {
+        
+    }
 
 }
