@@ -13,7 +13,7 @@ public enum MoveAction
     Return = -2//拠点に戻る
 }
 
-public class BaseMoveController : MonoBehaviour
+public class BaseMoveController : MonoBehaviour,IDamage
 {
     /// <summary>移動速度</summary>
     [SerializeField] protected float _speed = 5;
@@ -37,6 +37,9 @@ public class BaseMoveController : MonoBehaviour
 
     /// <summary>攻撃対象がコアかどうかの判定</summary>
     private bool IsTargetCore = false;
+
+    /// <summary>ValueController</summary>
+    protected BaseValueController _valueController;
 
     void Start()
     {
@@ -136,6 +139,17 @@ public class BaseMoveController : MonoBehaviour
     protected virtual void AttackEnemy()
     {
         _actionType = MoveAction.EnemyAttack;
+
+    }
+
+    /// <summary>
+    /// HPの変化
+    /// </summary>
+    /// <param name="value"></param>
+    public void ReceiveDamage(float value)
+    {
+        _valueController = GetComponent<BaseValueController>();
+        _valueController._healthPoint = value--;
     }
 
 
