@@ -149,7 +149,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     public void ReceiveDamage(float value)
     {
         _valueController = GetComponent<BaseValueController>();
-        _valueController._healthPoint = value--;
+        _valueController.HP(value);
     }
 
 
