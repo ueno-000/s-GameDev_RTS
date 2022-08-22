@@ -139,6 +139,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     protected virtual void AttackEnemy()
     {
         _actionType = MoveAction.EnemyAttack;
+        ReceiveDamage(5);
 
     }
 
