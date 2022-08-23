@@ -139,7 +139,16 @@ public class BaseMoveController : MonoBehaviour,IDamage
     protected virtual void AttackEnemy()
     {
         _actionType = MoveAction.EnemyAttack;
-        ReceiveDamage(5);
+
+        var terget = _enemy.gameObject.GetComponent<IDamage>();
+
+        if(terget != null)
+        {
+            var damage = _valueController.gameObject.GetComponent<BaseValueController>()._attackPower;
+            _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
+        }
+
+       
 
     }
 
