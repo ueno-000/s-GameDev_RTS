@@ -29,7 +29,7 @@ public class BaseValueController : MonoBehaviour
     
     void Start()
     {
-        _sliderCon = GetComponent<SliderController>();
+        _sliderCon = _sliderCon.gameObject.GetComponent<SliderController>();
         _sliderCon._slider.maxValue = _healthPoint;
     }
 
