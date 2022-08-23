@@ -8,7 +8,7 @@ public class BaseValueController : MonoBehaviour
     [SerializeField] protected int _level = 1;
 
     /// <summary>UŒ‚—Í</summary>
-    [SerializeField] public int _attackPower = 1;
+    [SerializeField] public float _attackPower = 1;
 
     /// <summary>UŒ‚‘¬“x</summary>
     [SerializeField] public float _attackInterval = 1;
