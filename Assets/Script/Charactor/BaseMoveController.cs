@@ -144,7 +144,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         if(terget != null)
         {
-            var damage = _valueController.gameObject.GetComponent<BaseValueController>()._attackPower;
+            var damage = this.gameObject.GetComponent<BaseValueController>()._attackPower;
             _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
         }
 
