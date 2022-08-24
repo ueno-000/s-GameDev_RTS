@@ -41,7 +41,7 @@ public class BaseValueController : MonoBehaviour
 
     public void HP(float hp)
     {
-        _healthPoint = hp--;
+        _healthPoint -= hp;
     }
 
 }

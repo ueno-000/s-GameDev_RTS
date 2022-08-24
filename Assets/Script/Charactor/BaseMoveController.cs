@@ -148,8 +148,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
             _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
         }
 
-       
-
     }
 
     /// <summary>
@@ -158,7 +156,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// <param name="value"></param>
     public void ReceiveDamage(float value)
     {
-        _valueController = GetComponent<BaseValueController>();
+        _valueController = this.gameObject.GetComponent<BaseValueController>();
         _valueController.HP(value);
     }
 
