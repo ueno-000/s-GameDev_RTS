@@ -25,12 +25,16 @@ public class BaseValueController : MonoBehaviour
     /// <summary>HP</summary>
     [SerializeField] public float _healthPoint = 1;
 
+    /// <summary>HP</summary>
+    [HideInInspector] public float _maxHealthPoint = 1;
+
     [SerializeField] private SliderController _sliderCon;
     
     void Start()
     {
         _sliderCon = _sliderCon.gameObject.GetComponent<SliderController>();
         _sliderCon._slider.maxValue = _healthPoint;
+        _maxHealthPoint = _healthPoint;
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class BaseValueController : MonoBehaviour
             Debug.Log(this.gameObject.name + ": Death");
             this.gameObject.SetActive(false);
         }
+
     }
 
     public void HP(float hp)
