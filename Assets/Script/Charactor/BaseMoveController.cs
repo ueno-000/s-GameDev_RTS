@@ -13,6 +13,7 @@ public enum MoveAction
     Return = -2//拠点に戻る
 }
 
+
 public class BaseMoveController : MonoBehaviour,IDamage
 {
     /// <summary>移動速度</summary>
@@ -28,6 +29,8 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
     private Vector3 _targetCorePos;
     private Vector3 _thisPos;
+
+    private Vector3 _basePos;
 
     /// <summary>現在のコアとの距離</summary>
     private float _currentTargetDistance = 0f;
@@ -45,6 +48,8 @@ public class BaseMoveController : MonoBehaviour,IDamage
     {
         StartCoroutine(MoveStart(5));
         
+        _valueController = GetComponent<BaseValueController>();
+
         _actionType = MoveAction.AdvanceMove;
         _enemy = null;
         IsTargetCore = true;
@@ -61,7 +66,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         _enemy = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetEnemy;
 
-        if (_enemy != null)
+        if (_enemy != null && _actionType != MoveAction.Return)
         {
             IsTargetCore = false;
             AttackEnemy();
@@ -70,6 +75,13 @@ public class BaseMoveController : MonoBehaviour,IDamage
         {
             _actionType = MoveAction.AdvanceMove;
         }
+
+        //体力が半分以下になったら
+        if (_valueController._healthPoint <= _valueController._healthPoint / 2)
+        { 
+            _actionType |= MoveAction.Return;
+        }
+
     }
 
     /// <summary>
@@ -103,6 +115,11 @@ public class BaseMoveController : MonoBehaviour,IDamage
                     Debug.Log("敵キャラクターに攻撃");
                     this.transform.LookAt(_enemy.transform);
                 }
+                break;
+
+            case MoveAction.Return:
+                Debug.Log("体力が半分を切りました");
+
                 break;
         }
     }
@@ -144,7 +161,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         if(terget != null)
         {
-            var damage = this.gameObject.GetComponent<BaseValueController>()._attackPower;
+            var damage = _valueController._attackPower;
             _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
         }
 
@@ -156,7 +173,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// <param name="value"></param>
     public void ReceiveDamage(float value)
     {
-        _valueController = this.gameObject.GetComponent<BaseValueController>();
         _valueController.HP(value);
     }
 
