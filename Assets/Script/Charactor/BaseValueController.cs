@@ -37,6 +37,12 @@ public class BaseValueController : MonoBehaviour
     void Update()
     {
         _sliderCon.UpdateSlider(_healthPoint);
+
+        if (_healthPoint <= 0)
+        {
+            Debug.Log(this.gameObject.name + ": Death");
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void HP(float hp)
@@ -44,4 +50,5 @@ public class BaseValueController : MonoBehaviour
         _healthPoint -= hp;
     }
 
+    
 }
