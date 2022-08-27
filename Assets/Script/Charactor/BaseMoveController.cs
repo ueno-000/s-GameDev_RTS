@@ -54,6 +54,9 @@ public class BaseMoveController : MonoBehaviour,IDamage
         _enemy = null;
         IsTargetCore = true;
 
+        //拠点のポジションを格納する
+        _basePos = this.transform.position;
+
     }
 
     void Update()
@@ -77,9 +80,10 @@ public class BaseMoveController : MonoBehaviour,IDamage
         }
 
         //体力が半分以下になったら
-        if (_valueController._healthPoint <= _valueController._healthPoint / 2)
+        if (_valueController._healthPoint <= _valueController._maxHealthPoint / 2)
         { 
-            _actionType |= MoveAction.Return;
+            _actionType = MoveAction.Return;
+
         }
 
     }
@@ -118,7 +122,14 @@ public class BaseMoveController : MonoBehaviour,IDamage
                 break;
 
             case MoveAction.Return:
+
                 Debug.Log("体力が半分を切りました");
+                //y軸はプレイヤーと同じにする
+                _basePos.y = transform.position.y;
+                // プレイヤーに向かせる
+                transform.LookAt(_basePos);
+                //オブジェクトを前方向に移動する
+                transform.position = transform.position + transform.forward * _speed * Time.deltaTime;  
 
                 break;
         }
