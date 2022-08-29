@@ -44,6 +44,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// <summary>ValueController</summary>
     protected BaseValueController _valueController;
 
+
     void Start()
     {
         StartCoroutine(MoveStart(5));
@@ -56,7 +57,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         //‹’“_‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğŠi”[‚·‚é
         _basePos = this.transform.position;
-
     }
 
     void Update()
@@ -83,7 +83,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
         if (_valueController._healthPoint <= _valueController._maxHealthPoint / 2)
         { 
             _actionType = MoveAction.Return;
-
         }
 
     }
@@ -172,10 +171,19 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         if(terget != null)
         {
-            var damage = _valueController._attackPower;
-            _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
+            DefaultAttack();
         }
 
+    }
+
+    /// <summary>
+    /// ’ÊíUŒ‚
+    /// </summary>
+    private void DefaultAttack()
+    {
+        var damage = _valueController._attackPower;
+        _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
+      
     }
 
     /// <summary>
