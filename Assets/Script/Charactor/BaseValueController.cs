@@ -11,8 +11,18 @@ public class BaseValueController : MonoBehaviour
     [SerializeField] public float _attackPower = 1;
 
     /// <summary>çUåÇë¨ìx</summary>
-    [SerializeField] public float _attackInterval = 1;
-
+    [SerializeField] private float _attackInterval = 1;
+    public float AttackInterval
+    {
+        get 
+        {
+            return _attackInterval; 
+        }
+        set 
+        {
+            _attackInterval = value; 
+        }
+    }
     /// <summary>çUåÇãóó£</summary>
     [SerializeField] public float _attackTransitionDistance = 2;
 
@@ -23,10 +33,22 @@ public class BaseValueController : MonoBehaviour
     [SerializeField] public float _speed = 1;
 
     /// <summary>HP</summary>
-    [SerializeField] public float _healthPoint = 1;
+    [SerializeField] private float _healthPoint = 1;
+    public float HealthPoint
+    {
+            get
+            {
+                return _healthPoint; 
+            }
+            set
+            {
+                _healthPoint = value; 
+            } 
+    }
 
-    /// <summary>HP</summary>
+    /// <summary>MaxHP</summary>
     [HideInInspector] public float _maxHealthPoint = 1;
+
 
     [SerializeField] private SliderController _sliderCon;
     
@@ -52,7 +74,7 @@ public class BaseValueController : MonoBehaviour
 
     public void HP(float hp)
     {
-        _healthPoint -= hp;
+        HealthPoint -= hp;
     }
 
     
