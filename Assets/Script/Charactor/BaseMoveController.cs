@@ -44,6 +44,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// <summary>ValueController</summary>
     protected BaseValueController _valueController;
 
+    private float _time;
 
     void Start()
     {
@@ -80,7 +81,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
         }
 
         //ëÃóÕÇ™îºï™à»â∫Ç…Ç»Ç¡ÇΩÇÁ
-        if (_valueController._healthPoint <= _valueController._maxHealthPoint / 2)
+        if (_valueController.HealthPoint <= _valueController._maxHealthPoint / 2)
         { 
             _actionType = MoveAction.Return;
         }
@@ -115,7 +116,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
                 if (!IsTargetCore)
                 {
-                    Debug.Log("ìGÉLÉÉÉâÉNÉ^Å[Ç…çUåÇ");
                     this.transform.LookAt(_enemy.transform);
                 }
                 break;
@@ -181,9 +181,16 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// </summary>
     private void DefaultAttack()
     {
+        _time += Time.deltaTime;
+        var interval = _valueController.AttackInterval;
         var damage = _valueController._attackPower;
-        _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
-      
+        if (_time >= interval)
+        {
+            Debug.Log("ìGÇ…çUåÇ");
+            _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
+            _time = 0.0f;
+        }
+
     }
 
     /// <summary>
