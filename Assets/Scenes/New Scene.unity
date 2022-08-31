@@ -175,6 +175,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4735720181823124506, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: _attackPower
+      value: 5.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735720181823124506, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: _attackInterval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4735720181823124707, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_Name
       value: Player
@@ -467,6 +475,18 @@ PrefabInstance:
     - target: {fileID: 4735720181823124504, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735720181823124506, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: _attackPower
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735720181823124506, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: _defensePower
+      value: 2.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735720181823124506, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: _attackInterval
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4735720181823124510, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_Materials.Array.data[0]
