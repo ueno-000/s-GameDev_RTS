@@ -104,6 +104,7 @@ public class TargetSerchScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("UŒ‚‘ÎÛ‚ª‚¢‚È‚­‚È‚è‚Ü‚µ‚½");
         switch (_playerType)
         {
             case 0://Blue
