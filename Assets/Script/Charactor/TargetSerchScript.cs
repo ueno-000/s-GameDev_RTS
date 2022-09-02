@@ -11,18 +11,21 @@ public enum PlayerColor
 
 public class TargetSerchScript : MonoBehaviour
 {
+    [Header("ターゲット")]
     /// <summary>ターゲットにするコア</summary>
-    [SerializeField] public GameObject _targetCore;
+    [Tooltip("ターゲットにするコア"),SerializeField] public GameObject _targetCore;
 
     /// <summary>ターゲットにするEnemy</summary>
-    [SerializeField] public GameObject _targetEnemy;
-
+    [Tooltip("ターゲットにするEnemy"), SerializeField] public GameObject _targetEnemy;
+    
+    [Header("Type")]
     /// <summary>PlayerのType</summary>
     [SerializeField] public PlayerColor _playerType = PlayerColor.Blue;
     
     /// <summary>コアのタグ</summary>
     private string[] _coreTag = {"BlueSubCore","RedSubCore", "BlueMainCore", "RedMainCore" };
 
+    [Header("サブコア")]
     /// <summary>味方陣地サブコアの配列</summary>
     [SerializeField] private GameObject[] _alliesSubCores;
 
@@ -104,19 +107,20 @@ public class TargetSerchScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("攻撃対象がいなくなりました");
         switch (_playerType)
         {
             case 0://Blue
                 if (other.gameObject.tag == "Red")
                 {
                     isEnemy = false;
+                    Debug.Log("RedEnemyが攻撃対象外になりました");
                 }
                 break;
             case (PlayerColor)1://Red
                 if (other.gameObject.tag == "Blue")
                 {
                     isEnemy = false;
+                    Debug.Log("BlueEnemyが攻撃対象外になりました");
                 }
                 break;
         }
