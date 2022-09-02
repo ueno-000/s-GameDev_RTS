@@ -73,7 +73,8 @@ public class BaseMoveController : MonoBehaviour,IDamage
         if (_enemy != null && _actionType != MoveAction.Return)
         {
             IsTargetCore = false;
-            AttackEnemy();
+
+            _actionType = MoveAction.EnemyAttack;
         }
         else
         {
@@ -118,6 +119,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
                 {
                     this.transform.LookAt(_enemy.transform);
                 }
+                AttackEnemy();
                 break;
 
             case MoveAction.Return:
@@ -143,7 +145,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// <summary>
     /// コアとの距離が指定した値に達したらActionを変える
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value">検知する距離</param>
     protected virtual void LookDistanse(float value)
     {
         _thisPos = this.gameObject.transform.position;
@@ -165,8 +167,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// </summary>
     protected virtual void AttackEnemy()
     {
-        _actionType = MoveAction.EnemyAttack;
-
         var terget = _enemy.gameObject.GetComponent<IDamage>();
 
         if(terget != null)
