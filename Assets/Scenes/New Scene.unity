@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4735720181508670292, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.19
+      objectReference: {fileID: 0}
     - target: {fileID: 4735720181823124504, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -194,6 +198,10 @@ PrefabInstance:
     - target: {fileID: 4735720182275904411, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4735720183217504967, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -446,7 +454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4735720181823124504, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.61
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 4735720181823124504, guid: 291c9a5b116e98b44be7599a033d3aad, type: 3}
       propertyPath: m_LocalRotation.w
