@@ -36,10 +36,10 @@ public class BaseMoveController : MonoBehaviour,IDamage
     private float _currentTargetDistance = 0f;
 
     /// <summary>動きの判定</summary>
-    private bool IsMoving = false;
+    private bool isMoving = false;
 
     /// <summary>攻撃対象がコアかどうかの判定</summary>
-    private bool IsTargetCore = false;
+    private bool isTargetCore = false;
 
     /// <summary>ValueController</summary>
     protected BaseValueController _valueController;
@@ -54,7 +54,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         _actionType = MoveAction.AdvanceMove;
         _enemy = null;
-        IsTargetCore = true;
+        isTargetCore = true;
 
         //拠点のポジションを格納する
         _basePos = this.transform.position;
@@ -62,7 +62,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
     void Update()
     {
-        if (IsMoving)
+        if (isMoving)
         {
             ActionChange();
         }
@@ -72,7 +72,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         if (_enemy != null && _actionType != MoveAction.Return)
         {
-            IsTargetCore = false;
+            isTargetCore = false;
 
             _actionType = MoveAction.EnemyAttack;
         }
@@ -98,7 +98,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
         {
             case MoveAction.AdvanceMove:
 
-                if (IsTargetCore)
+                if (isTargetCore)
                 {
                     //y軸はプレイヤーと同じにする
                     _targetCorePos.y = transform.position.y;
@@ -115,7 +115,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
             case MoveAction.EnemyAttack:
 
-                if (!IsTargetCore)
+                if (!isTargetCore)
                 {
                     this.transform.LookAt(_enemy.transform);
                 }
@@ -125,6 +125,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
             case MoveAction.Return:
 
                 Debug.Log("体力が半分を切りました");
+                _enemy = null;
                 //y軸はプレイヤーと同じにする
                 _basePos.y = transform.position.y;
                 // プレイヤーに向かせる
@@ -212,10 +213,10 @@ public class BaseMoveController : MonoBehaviour,IDamage
     protected IEnumerator MoveStart(float second)
     {
         Debug.Log("待機ターン");
-        IsMoving = false;
+        isMoving = false;
         yield return new WaitForSeconds(second);
         Debug.Log("行動開始");
-        IsMoving = true;
+        isMoving = true;
         yield break;
     }
 }
