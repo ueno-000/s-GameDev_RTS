@@ -46,10 +46,10 @@ public class TargetSerchScript : MonoBehaviour
     void Update()
     {
         var isBreakSubCore = false;
-        if (isBreakSubCore)
-        {
+        //if (isBreakSubCore)
+        //{
             
-        }
+        //}
 
         if (!isEnemy) _targetEnemy = null;
     }
