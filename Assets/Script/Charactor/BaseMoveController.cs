@@ -9,8 +9,6 @@ public enum MoveAction
     CoreAttack = 2,//コアに対しての攻撃
     EnemyAttack = 3,//キャラクターに対しての攻撃
     Chase = 4,//追従
-    EvasionMove = -1,//回避
-    Return = -2//拠点に戻る
 }
 
 
@@ -70,7 +68,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         _enemy = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetEnemy;
 
-        if (_enemy != null && _actionType != MoveAction.Return)
+        if (_enemy != null)
         {
             isTargetCore = false;
 
@@ -79,12 +77,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
         else
         {
             _actionType = MoveAction.AdvanceMove;
-        }
-
-        //体力が半分以下になったら
-        if (_valueController.HealthPoint <= _valueController._maxHealthPoint / 2)
-        { 
-            _actionType = MoveAction.Return;
         }
 
     }
@@ -120,19 +112,6 @@ public class BaseMoveController : MonoBehaviour,IDamage
                     this.transform.LookAt(_enemy.transform);
                 }
                 AttackEnemy();
-                break;
-
-            case MoveAction.Return:
-
-                Debug.Log("体力が半分を切りました");
-                _enemy = null;
-                //y軸はプレイヤーと同じにする
-                _basePos.y = transform.position.y;
-                // プレイヤーに向かせる
-                transform.LookAt(_basePos);
-                //オブジェクトを前方向に移動する
-                transform.position = transform.position + transform.forward * _speed * Time.deltaTime;  
-
                 break;
         }
     }
