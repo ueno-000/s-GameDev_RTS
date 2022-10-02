@@ -14,23 +14,28 @@ public class BaseValueController : MonoBehaviour
     [SerializeField] private float _attackInterval = 1;
     public float AttackInterval
     {
-        get 
-        {
-            return _attackInterval; 
-        }
-        set 
-        {
-            _attackInterval = value; 
-        }
+        get => _attackInterval;
+        set => _attackInterval = value;
     }
+
     /// <summary>攻撃距離</summary>
-    [SerializeField] public float _attackTransitionDistance = 2;
+    [SerializeField] private float _attackTransitionDistance = 2;
+    public float AttackTransitionDistance
+    {
+        get => _attackTransitionDistance;
+        set => _attackTransitionDistance = value;
+    }
 
     /// <summary>防御力</summary>
     [SerializeField] public float _defensePower = 1;
 
-    /// <summary>スピード</summary>
-    [SerializeField] public float _speed = 1;
+    /// <summary>移動速度</summary>
+    [SerializeField] private float _moveSpeed = 1;
+    public float MoveSpeed
+    {
+        get => _moveSpeed;
+        set => _moveSpeed = value;
+    }
 
     /// <summary>HP</summary>
     [SerializeField] private float _healthPoint = 1;
