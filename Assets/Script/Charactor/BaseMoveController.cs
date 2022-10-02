@@ -21,7 +21,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     [SerializeField] protected float _attackTransitionDistance = 2;
 
     /// <summary>Action‚ÌType</summary>
-    [SerializeField] public MoveAction _actionType = MoveAction.AdvanceMove;
+    [SerializeField] public MoveAction ActionType = MoveAction.AdvanceMove;
 
     private GameObject _enemy;
 
@@ -47,15 +47,23 @@ public class BaseMoveController : MonoBehaviour,IDamage
     void Start()
     {
         StartCoroutine(MoveStart(5));
-        
-        _valueController = GetComponent<BaseValueController>();
 
-        _actionType = MoveAction.AdvanceMove;
+        ValueSetting();
+
+        ActionType = MoveAction.AdvanceMove;
         _enemy = null;
         isTargetCore = true;
 
         //‹’“_‚Ìƒ|ƒWƒVƒ‡ƒ“‚ðŠi”[‚·‚é
         _basePos = this.transform.position;
+    }
+
+    private void ValueSetting()
+    {
+        _valueController = GetComponent<BaseValueController>();
+
+        _speed = _valueController.MoveSpeed;
+        _attackTransitionDistance = _valueController.AttackTransitionDistance;
     }
 
     void Update()
@@ -65,19 +73,13 @@ public class BaseMoveController : MonoBehaviour,IDamage
             ActionChange();
         }
 
+        if (_enemy != null)
+        {
+            isTargetCore = false;
 
-        //_enemy = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetEnemy;
+            ActionType = MoveAction.EnemyAttack;
+        }
 
-        //if (_enemy != null)
-        //{
-        //    isTargetCore = false;
-
-        //    _actionType = MoveAction.EnemyAttack;
-        //}
-        //else
-        //{
-        //    _actionType = MoveAction.AdvanceMove;
-        //}
 
     }
 
@@ -86,7 +88,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// </summary>
     protected virtual void ActionChange()
     {
-        switch (_actionType)
+        switch (ActionType)
         {
             case MoveAction.AdvanceMove:
 
@@ -119,7 +121,8 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
     protected virtual void FixedUpdate()
     {
-        _targetCorePos = this.transform.GetChild(0).GetComponent<TargetSerchScript>()._targetCore.transform.position;
+        _enemy = transform.GetChild(0).GetComponent<TargetSerchScript>().TargetEnemy;
+        _targetCorePos = this.transform.GetChild(0).GetComponent<TargetSerchScript>().TargetCore.transform.position;
         LookDistanse(_attackTransitionDistance);
     }
 
@@ -135,13 +138,13 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         if (_currentTargetDistance <= value)
         {
-            _actionType = MoveAction.CoreAttack;
+            ActionType = MoveAction.CoreAttack;
   
         }
         else
         {
             Debug.Log("Move");
-            _actionType = MoveAction.AdvanceMove;
+            ActionType = MoveAction.AdvanceMove;
         }
     }
 
