@@ -13,21 +13,19 @@ public class TargetSerchScript : MonoBehaviour
 {
     [Header("ターゲット")]
     /// <summary>ターゲットにするコア</summary>
-    [Tooltip("ターゲットにするコア"),SerializeField] public GameObject _targetCore;
+    [Tooltip("ターゲットにするコア"),SerializeField] public GameObject TargetCore;
 
     /// <summary>ターゲットにするEnemy</summary>
-    [Tooltip("ターゲットにするEnemy"), SerializeField] public GameObject _targetEnemy;
+    [Tooltip("ターゲットにするEnemy"), SerializeField] public GameObject TargetEnemy;
     
     [Header("Type")]
     /// <summary>PlayerのType</summary>
-    [SerializeField] public PlayerColor _playerType = PlayerColor.Blue;
+    [SerializeField] public PlayerColor PlayerType = PlayerColor.Blue;
     
     /// <summary>コアのタグ</summary>
     private string[] _coreTag = {"BlueSubCore","RedSubCore", "BlueMainCore", "RedMainCore" };
 
     [Header("サブコア")]
-    /// <summary>味方陣地サブコアの配列</summary>
-    [SerializeField] private GameObject[] _alliesSubCores;
 
     /// <summary>敵陣地サブコアの配列</summary>
     [SerializeField] private GameObject[] _enemySubCores;
@@ -45,28 +43,18 @@ public class TargetSerchScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var isBreakSubCore = false;
-        //if (isBreakSubCore)
-        //{
-            
-        //}
-
-        if (!isEnemy) _targetEnemy = null;
+        if (!isEnemy) TargetEnemy = null;
     }
 
     private void TargetSerch()
     {
-        switch (_playerType)
+        switch (PlayerType)
         {
             case 0://Blue
-                //味方のサブコアを配列に格納する
-                _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);//Blue
                 //敵のサブコアを配列に格納する
                 _enemySubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);//Red
                 break;
             case (PlayerColor)1://Red
-                //味方のサブコアを配列に格納する
-                _alliesSubCores = GameObject.FindGameObjectsWithTag(_coreTag[1]);//Red
                 //敵のサブコアを配列に格納する
                 _enemySubCores = GameObject.FindGameObjectsWithTag(_coreTag[0]);//Blue
                 break;
@@ -80,7 +68,7 @@ public class TargetSerchScript : MonoBehaviour
     {
         var enemyCoreArray = _enemySubCores.OrderBy(x => Vector3.Distance(this.transform.position, x.transform.position)).ToArray();
 
-        _targetCore = enemyCoreArray[0];
+        TargetCore = enemyCoreArray[0];
 
     }
 
@@ -88,18 +76,18 @@ public class TargetSerchScript : MonoBehaviour
     {
         isEnemy = true;
 
-        switch (_playerType)
+        switch (PlayerType)
         {
             case 0://Blue
                 if (other.gameObject.tag == "Red")
                 {
-                    _targetEnemy = other.gameObject;
+                    TargetEnemy = other.gameObject;
                 }
                 break;
             case (PlayerColor)1://Red
                 if (other.gameObject.tag == "Blue")
                 {
-                    _targetEnemy = other.gameObject;
+                    TargetEnemy = other.gameObject;
                 }
                 break;
         }
@@ -107,7 +95,7 @@ public class TargetSerchScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        switch (_playerType)
+        switch (PlayerType)
         {
             case 0://Blue
                 if (other.gameObject.tag == "Red")
