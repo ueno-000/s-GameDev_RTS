@@ -118,7 +118,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
     protected virtual void FixedUpdate()
     {
-        _targetCorePos = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetCore.transform.position;
+        _targetCorePos = this.transform.GetChild(0).GetComponent<TargetSerchScript>()._targetCore.transform.position;
         LookDistanse(2);
     }
 
