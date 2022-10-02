@@ -66,18 +66,18 @@ public class BaseMoveController : MonoBehaviour,IDamage
         }
 
 
-        _enemy = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetEnemy;
+        //_enemy = transform.GetChild(0).GetComponent<TargetSerchScript>()._targetEnemy;
 
-        if (_enemy != null)
-        {
-            isTargetCore = false;
+        //if (_enemy != null)
+        //{
+        //    isTargetCore = false;
 
-            _actionType = MoveAction.EnemyAttack;
-        }
-        else
-        {
-            _actionType = MoveAction.AdvanceMove;
-        }
+        //    _actionType = MoveAction.EnemyAttack;
+        //}
+        //else
+        //{
+        //    _actionType = MoveAction.AdvanceMove;
+        //}
 
     }
 
@@ -101,6 +101,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
                     transform.position = transform.position + transform.forward * _speed * Time.deltaTime;
                 }
                 break;
+
             case MoveAction.CoreAttack:
                 Debug.Log("çUåÇ");
                 break;
@@ -119,7 +120,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     protected virtual void FixedUpdate()
     {
         _targetCorePos = this.transform.GetChild(0).GetComponent<TargetSerchScript>()._targetCore.transform.position;
-        LookDistanse(2);
+        LookDistanse(_attackTransitionDistance);
     }
 
     /// <summary>
@@ -132,12 +133,14 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         _currentTargetDistance = Mathf.Sqrt(Mathf.Pow(_thisPos.x - _targetCorePos.x, 2) + Mathf.Pow(_thisPos.z - _targetCorePos.z, 2));
 
-        if (_currentTargetDistance <= _attackTransitionDistance)
+        if (_currentTargetDistance <= value)
         {
             _actionType = MoveAction.CoreAttack;
+  
         }
         else
         {
+            Debug.Log("Move");
             _actionType = MoveAction.AdvanceMove;
         }
     }
