@@ -38,17 +38,11 @@ public class BaseValueController : MonoBehaviour
     }
 
     /// <summary>HP</summary>
-    [SerializeField] private float _healthPoint = 1;
+    [SerializeField] private float _hitPoint = 1;
     public float HealthPoint
     {
-            get
-            {
-                return _healthPoint; 
-            }
-            set
-            {
-                _healthPoint = value; 
-            } 
+        get =>_hitPoint;
+        set => _hitPoint = value;
     }
 
     /// <summary>MaxHP</summary>
@@ -60,16 +54,16 @@ public class BaseValueController : MonoBehaviour
     void Start()
     {
         _sliderCon = _sliderCon.gameObject.GetComponent<SliderController>();
-        _sliderCon._slider.maxValue = _healthPoint;
-        _maxHealthPoint = _healthPoint;
+        _sliderCon._slider.maxValue = _hitPoint;
+        _maxHealthPoint = _hitPoint;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _sliderCon.UpdateSlider(_healthPoint);
+        _sliderCon.UpdateSlider(_hitPoint);
 
-        if (_healthPoint <= 0)
+        if (_hitPoint <= 0)
         {
             Debug.Log(this.gameObject.name + ": Death");
             this.gameObject.SetActive(false);
