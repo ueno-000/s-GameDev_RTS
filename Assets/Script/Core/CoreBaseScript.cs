@@ -10,13 +10,15 @@ public enum Type
 
 public class CoreBaseScript : MonoBehaviour
 {
-    [SerializeField] private float _healthPoint = 5;
+    private float _healthPoint = 5;
+    private float _attackSpeed = 5;
+
     [SerializeField] public Type CoreType = Type.SubCore;
 
-    MeshRenderer _meshRenderer;
+    [SerializeField] private CoreValueController _coreValueController;
     private void Start()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
+        _coreValueController = _coreValueController.gameObject.GetComponent<CoreValueController>();
 
         Change();
     }
@@ -26,11 +28,12 @@ public class CoreBaseScript : MonoBehaviour
         switch (CoreType)
         {
             case Type.SubCore:
-                _healthPoint = 5;
+                _healthPoint = _coreValueController.SubCoreHitPoint;
+                _attackSpeed = _coreValueController.SubCoreAttackSpeed;
                 break;
             case Type.MainCore:
-                _healthPoint = 100;
-
+                _healthPoint = _coreValueController.MainCoreHitPoint;
+                _attackSpeed = _coreValueController.MainCoreAttackSpeed;
                 break;
         }
     }
