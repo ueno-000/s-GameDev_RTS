@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseValueController : MonoBehaviour
+public class BaseValueController : MonoBehaviour/*,IDamage*/
 {
     /// <summary>Level</summary>
     [SerializeField] protected int _level = 1;
@@ -76,5 +76,10 @@ public class BaseValueController : MonoBehaviour
         HealthPoint -= hp;
     }
 
-    
+    //public void ReceiveDamage(float value)
+    //{ 
+    //    HP(value);
+    //}
+
+
 }
