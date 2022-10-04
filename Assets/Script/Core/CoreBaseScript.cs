@@ -8,10 +8,12 @@ public enum Type
     MainCore
 }
 
-public class CoreBaseScript : MonoBehaviour
+public class CoreBaseScript : MonoBehaviour,IDamage
 {
-    private float _healthPoint = 5;
+   [SerializeField] private float _healthPoint = 5;
     private float _attackSpeed = 5;
+    private float _damage = 5;
+    private float _time;
 
     [SerializeField] public Type CoreType = Type.SubCore;
 
@@ -19,7 +21,6 @@ public class CoreBaseScript : MonoBehaviour
     private void Start()
     {
         _coreValueController = _coreValueController.gameObject.GetComponent<CoreValueController>();
-
         Change();
     }
 
@@ -41,5 +42,30 @@ public class CoreBaseScript : MonoBehaviour
     private void OnValidate()
     {
         Change();
+    }
+
+    public void ReceiveDamage(float value)
+    {
+        _healthPoint -= value;
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (other.gameObject.GetComponent<IDamage>() != null)
+            {
+                _time += Time.deltaTime;
+
+                if(_time >= _attackSpeed)
+                {
+                    other.gameObject.GetComponent<IDamage>().ReceiveDamage(_damage);
+                    Debug.Log($"{other}Ç…{_damage}É_ÉÅÅ[ÉWÇÃçUåÇ");
+                    _time = 0.0f;
+                }
+
+            }
+        }
     }
 }
