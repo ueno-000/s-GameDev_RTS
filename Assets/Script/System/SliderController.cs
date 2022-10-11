@@ -3,15 +3,20 @@ using UnityEngine.UI;
 
 public class SliderController : MonoBehaviour
 {
-    public Slider _slider;
+    [SerializeField] public Slider HPSlider;
     // Start is called before the first frame update
     void Start()
     {
-        _slider = GetComponent<Slider>();
+        HPSlider = GetComponent<Slider>();
+    }
+
+    public void MaxValueSetting(float value)
+    {
+        HPSlider.maxValue = value; 
     }
 
     public void UpdateSlider(float value)
     {
-        _slider.value = value; 
+        HPSlider.value = value; 
     }
 }
