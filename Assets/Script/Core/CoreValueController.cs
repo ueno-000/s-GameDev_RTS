@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CoreValueController : MonoBehaviour
 {
     [SerializeField] private float _subCoreHitPoint = 100f;
@@ -32,13 +33,14 @@ public class CoreValueController : MonoBehaviour
         set => _mainCoreAttackSpeed = value;
     }
 
+
+
     void Start()
     {
-        
     }
 
     void Update()
     {
-        
+       
     }
 }
