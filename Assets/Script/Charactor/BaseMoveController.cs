@@ -46,7 +46,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
     void Start()
     {
-        StartCoroutine(MoveStart(5));
+       StartCoroutine(MoveStart(5));
 
         ValueSetting();
 
@@ -105,6 +105,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
                 break;
 
             case MoveAction.CoreAttack:
+                DefaultAttack(this.transform.GetChild(0).GetComponent<TargetSerchScript>().TargetCore);
                 Debug.Log("çUåÇ");
                 break;
 
@@ -157,7 +158,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
         if(terget != null)
         {
-            DefaultAttack();
+            DefaultAttack(_enemy);
         }
 
     }
@@ -165,7 +166,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
     /// <summary>
     /// í èÌçUåÇ
     /// </summary>
-    private void DefaultAttack()
+    private void DefaultAttack(GameObject _enm)
     {
         _time += Time.deltaTime;
         var interval = _valueController.AttackInterval;
@@ -173,7 +174,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
         if (_time >= interval)
         {
             Debug.Log("ìGÇ…çUåÇ");
-            _enemy.GetComponent<IDamage>().ReceiveDamage(damage);
+            _enm.GetComponent<IDamage>().ReceiveDamage(damage);
             _time = 0.0f;
         }
 
