@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Type
 {
@@ -11,18 +12,33 @@ public enum Type
 public class CoreBaseScript : MonoBehaviour,IDamage
 {
    [SerializeField] private float _healthPoint = 5;
+
     private float _attackSpeed = 5;
+    
     private float _damage = 5;
+    
     private float _time;
 
     [SerializeField] public Type CoreType = Type.SubCore;
 
     [SerializeField] private CoreValueController _coreValueController;
+
+    [SerializeField] private SliderController _sliderController;
+
     private void Start()
     {
         _coreValueController = _coreValueController.gameObject.GetComponent<CoreValueController>();
+        _sliderController = _sliderController.gameObject.GetComponent<SliderController>();
+        _sliderController.MaxValueSetting(_healthPoint);
         Change();
     }
+
+    private void Update()
+    {
+        Debug.Log(_healthPoint);
+        _sliderController.UpdateSlider(_healthPoint);
+    }
+
 
     private void Change()
     {
