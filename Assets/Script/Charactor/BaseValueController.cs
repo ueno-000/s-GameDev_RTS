@@ -54,7 +54,7 @@ public class BaseValueController : MonoBehaviour/*,IDamage*/
     void Start()
     {
         _sliderCon = _sliderCon.gameObject.GetComponent<SliderController>();
-        _sliderCon._slider.maxValue = _hitPoint;
+        _sliderCon.HPSlider.maxValue = _hitPoint;
         _maxHealthPoint = _hitPoint;
     }
 
