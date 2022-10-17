@@ -2856,7 +2856,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetObj: {fileID: 1036094375}
-  _markerOffset: {x: 0, y: 0.01, z: -30}
 --- !u!4 &1492886868
 Transform:
   m_ObjectHideFlags: 0
