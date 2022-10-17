@@ -6,30 +6,15 @@ using UnityEngine.EventSystems;
 
 public class MassSelectScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] 
+    [SerializeField] private Transform _targetObj;
 
-    void Start()
-    {
+    private Vector3 mouse;
+    private Vector3 target;
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        //MouseTes();
+        mouse = Input.mousePosition;
+        target = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 10));
+        _targetObj.position = target;
     }
-
-    public void OnMouseDown()
-    {
-
-    }
-
-    public void OnMouseUp()
-    {
-
-    }
-
-
-
 }
