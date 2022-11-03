@@ -46,7 +46,7 @@ public class BaseMoveController : MonoBehaviour,IDamage
 
     void Start()
     {
-       StartCoroutine(MoveStart(5));
+       StartCoroutine(MoveStart(1));
 
         ValueSetting();
 
