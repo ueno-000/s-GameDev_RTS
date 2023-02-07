@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
+
 using UnityEngine.AI;   // Navmesh Agent を使うために必要
 
 /// <summary>
@@ -33,21 +33,16 @@ public class RigidbodyPlayerController : MonoBehaviour
     NavMeshAgent _agent = default;
 
     Rigidbody _rb;
-    PhotonView _view;
+
 
 
     void Start()
     {
-        _view = GetComponent<PhotonView>();
 
-        if (_view)
-        {
-            if (_view.IsMine)
-            {
-                // 同期元（自分で操作して動かす）オブジェクトの場合のみ Rigidbody を使う
-                _rb = GetComponent<Rigidbody>();
-            }
-        }
+        // 同期元（自分で操作して動かす）オブジェクトの場合のみ Rigidbody を使う
+        _rb = GetComponent<Rigidbody>();
+
+
         _agent = GetComponent<NavMeshAgent>();
         // 初期位置を保存する（※）
         _cachedTargetPosition = _maker.position;
@@ -55,15 +50,14 @@ public class RigidbodyPlayerController : MonoBehaviour
 
     void Update()
     {
-        if (_view && !_view.IsMine) return;  // 同期先のオブジェクトだった場合は何もしない
+
+        // _target が移動したら Navmesh Agent を使って移動させる
+        if (Vector3.Distance(_cachedTargetPosition, _maker.position) > Mathf.Epsilon) // _target が移動したら
         {
-            // _target が移動したら Navmesh Agent を使って移動させる
-            if (Vector3.Distance(_cachedTargetPosition, _maker.position) > Mathf.Epsilon) // _target が移動したら
-            {
-                _cachedTargetPosition = _maker.position; // 移動先の座標を保存する
-                _agent.SetDestination(_cachedTargetPosition);  // Navmesh Agent に目的地をセットする
-            }
+            _cachedTargetPosition = _maker.position; // 移動先の座標を保存する
+            _agent.SetDestination(_cachedTargetPosition);  // Navmesh Agent に目的地をセットする
         }
+
     }
 
 
