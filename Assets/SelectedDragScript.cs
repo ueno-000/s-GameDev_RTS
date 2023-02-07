@@ -8,15 +8,15 @@ using UnityEngine.EventSystems;
 /// オブジェクトをドラッグして移動させる
 /// </summary>
 
-public class SelectedDragScript : MonoBehaviour,/*IBeginDragHandler,*/IDragHandler,IEndDragHandler
+public class SelectedDragScript : MonoBehaviour,IDragHandler,IEndDragHandler
 {
     /// <summary>ドラッグの速度</summary>
-    private const float _dragSpeed = 10f;
+    private float _dragSpeed = 10f;
 
     /// <summary>オブジェクト地面から浮かせる高さ </summary>
     private const float OffsetY = 2;
 
-    private Plane plane = new Plane(Vector3.up, new Vector3(0, OffsetY, 0));
+    private Plane plane= new(Vector3.up, new Vector3(0, OffsetY, 0));
 
     private Rigidbody _rb;
     private Transform _transform;
@@ -42,21 +42,8 @@ public class SelectedDragScript : MonoBehaviour,/*IBeginDragHandler,*/IDragHandl
     private void Start()
     {
         _rb.isKinematic = true;
+        
     }
-
-    /// <summary>
-    /// ドラッグの開始
-    /// </summary>
-    /// <param name = "eventData" ></ param >
-    //public void OnBeginDrag(PointerEventData eventData)
-    //{
-    //    ドラッグ中は物理演算が働かないようにする
-    //    if (_rb != null)
-    //    {
-    //        isKinematic = _rb.isKinematic;
-    //        _rb.isKinematic = true;
-    //    }
-    //}
 
     /// <summary>
     /// ドラッグ中
