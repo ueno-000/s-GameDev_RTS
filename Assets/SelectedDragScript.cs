@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 /// <summary>
 /// オブジェクトをドラッグして移動させる
@@ -41,8 +42,29 @@ public class SelectedDragScript : MonoBehaviour,IDragHandler,IEndDragHandler
 
     private void Start()
     {
-        _rb.isKinematic = true;
-        
+        _rb.isKinematic = true; 
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Vector3 pos = default;
+            if (plane.Raycast(ray, out float hit))
+            {
+                pos = ray.GetPoint(hit);
+            }
+            else if (hit < -1.0f)
+            {
+                pos = ray.GetPoint(-hit);
+            }
+
+            if (pos != default)
+            {
+                _transform.position = Vector3.Lerp(_transform.position, pos, _dragSpeed * Time.deltaTime);
+            }
+        }
     }
 
     /// <summary>
