@@ -75,3 +75,6 @@ ProjectSettings/TagManager.asset
 ProjectSettings/EditorBuildSettings.asset
 ProjectSettings/ProjectSettings.asset
 ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
+Assets/AWSSDK/
+Assets/Examples/
+Assets/Plugins/
